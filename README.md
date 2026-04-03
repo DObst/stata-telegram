@@ -14,7 +14,7 @@ Let's be honest: staring at a screen while a massive script runs is terrible. Wh
 
 You can install the latest version directly from SSC:
 ```stata
-net install telegram, from("[https://raw.githubusercontent.com/DObst/stata-telegram/main/](https://raw.githubusercontent.com/DObst/stata-telegram/main/)")
+net install telegram, from("https://raw.githubusercontent.com/DObst/stata-telegram/main/")
 ```
 
 ## Quick Start
