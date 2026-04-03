@@ -34,7 +34,8 @@ tg "Data cleaning finished. I deserve a coffee."
 tg "Model 1 Converged || R-squared: 0.85 || Let's pretend that's causal..."
 ```
 
-**4. Send an Exported Graph** ```stata
+**4. Send an Exported Graph** 
+```stata
 sysuse auto, clear
 scatter price mpg
 graph export "results.png", as(png) replace
