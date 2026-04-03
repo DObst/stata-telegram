@@ -1,4 +1,4 @@
-* version 1.0.0  03apr2026
+*! version 1.0.0  03apr2026
 program define telegram, rclass
     version 17
 
@@ -188,22 +188,30 @@ program define TelegramMain, rclass
         if "`debug'" != "" capture noisily shell `cmd'
         else capture quietly shell `cmd'
 
-        if _rc exit _rc
-
-        local response ""
+        // Catch the 601 error if curl fails to generate the output file
         capture file open `fh' using "`tgresp'", read text
-        if _rc exit _rc
+        if _rc {
+            di as err `"{bf:telegram}: Could not read API response. Check your internet connection or {bf:curlcmd()} path."'
+            exit 198
+        }
         capture file read `fh' response
         capture file close `fh'
 
         if strpos(`"`response'"', `""ok":true"') == 0 {
             di as err `"{bf:telegram}: Telegram API rejected the figure request."'
+            if ustrregexm(`"`response'"', `""description":"([^"]+)""') {
+                di as err `"       Reason: {bf:`=ustrregexs(1)'}"'
+            }
+            else {
+                di as err `"       Raw response: `response'"'
+            }
             exit 22
         }
     }
     // [BRANCH B: SEND TEXT WITH CHUNKING]
     else {
-        local maxchars 4096
+        // Lowered to 4000 to safely bypass Telegram's UTF-16 code unit counting for emojis
+        local maxchars 4000
         local remaining `"`text'"'
 
         while ustrlen(`"`remaining'"') > 0 {
@@ -223,16 +231,23 @@ program define TelegramMain, rclass
             if "`debug'" != "" capture noisily shell `cmd'
             else capture quietly shell `cmd'
 
-            if _rc exit _rc
-
-            local response ""
+            // Catch the 601 error if curl fails to generate the output file
             capture file open `fh' using "`tgresp'", read text
-            if _rc exit _rc
+            if _rc {
+                di as err `"{bf:telegram}: Could not read API response for chunk `nchunks'. Check your internet connection or {bf:curlcmd()} path."'
+                exit 198
+            }
             capture file read `fh' response
             capture file close `fh'
 
             if strpos(`"`response'"', `""ok":true"') == 0 {
                 di as err `"{bf:telegram}: Telegram API rejected chunk `nchunks'."'
+                if ustrregexm(`"`response'"', `""description":"([^"]+)""') {
+                    di as err `"       Reason: {bf:`=ustrregexs(1)'}"'
+                }
+                else {
+                    di as err `"       Raw response: `response'"'
+                }
                 exit 22
             }
         }
