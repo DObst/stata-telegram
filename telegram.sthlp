@@ -69,7 +69,9 @@ paying for premium third-party push notification apps.
 {bf:Setup and Credentials:} Nobody wants to paste their Bot Token and Chat ID 
 into every single command. Run {cmd:telegram setup} once. It walks you through 
 the setup and quietly saves your credentials in a {cmd:telegram_config.txt} 
-file inside your Stata {cmd:PERSONAL} directory.
+file inside your Stata {cmd:PERSONAL} directory. (Pro-tip: If you are on a 
+virtual desktop, ensure your {cmd:PERSONAL} sysdir points to a persistent 
+network drive).
 
 {pstd}
 {bf:Line Breaks:} Because walls of text are terrible to read on a phone, use 
@@ -78,9 +80,10 @@ pipes are automatically trimmed (unless you use the {opt notrimpipe} option).
 
 {pstd}
 {bf:Message Chunking:} Telegram cuts off standard messages at 4,096 characters. 
-If your Stata output is overly chatty, {cmd:telegram} is Unicode-aware and 
-will automatically split it into multiple texts without mangling your emojis 
-or complex characters.
+{cmd:telegram} is Unicode-aware and will automatically split longer output into 
+sequential chunks of 4,000 characters. This conservative limit ensures that 
+multi-byte characters (like complex emojis) don't cause API rejection errors 
+at the boundary.
 
 {pstd}
 {bf:Figure Captions:} Use the {opt figure()} option to push charts right to 
