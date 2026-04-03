@@ -12,7 +12,7 @@ Let's be honest: staring at a screen while a massive script runs is terrible. Wh
 
 ## Installation
 
-You can install the latest version directly from SSC:
+You can install the latest version directly from this repository:
 ```stata
 net install telegram, from("https://raw.githubusercontent.com/DObst/stata-telegram/main/")
 ```
