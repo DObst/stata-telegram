@@ -1,0 +1,3 @@
+v 3
+d Daniel Obst (daniel@danielobst.de)
+p telegram Send free push notifications and Stata figures to Telegram (iPhone/Android)

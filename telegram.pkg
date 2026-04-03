@@ -1,0 +1,18 @@
+v 3
+d telegram. Send free push notifications (mobile alerts) and exported figures from Stata to Telegram.
+d
+d Author: Daniel Obst
+d Support: email daniel@danielobst.de
+d
+d telegram provides a no-nonsense way to send real-time status updates,
+d free push notifications (mobile alerts), and exported graphs from Stata 
+d directly to your smartphone (iPhone or Android) or desktop via the Telegram 
+d messenger. It is a hassle-free alternative to wrestling with SMTP email 
+d servers or paying for premium third-party apps for remote monitoring of 
+d long-running do-files, server batch jobs, or Monte Carlo simulations.
+d
+d Distribution-Date: 20260403
+d
+f telegram.ado
+f tg.ado
+f telegram.sthlp
